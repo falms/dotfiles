@@ -1,0 +1,18 @@
+- hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+  - apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      id: 0EBFCD88
+  - name: install essentials for Docker
+    apt:
+      name: apt-transport-https,ca-certificates,curl,gnupg2,software-properties-common
+  - name: add Docker apt repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+      filename: docker
+  - name: install Docker
+    apt:
+      name: docker-ce,docker-ce-cli,containerd.io
+      update_cache: yes
