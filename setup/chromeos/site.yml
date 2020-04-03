@@ -8,7 +8,7 @@
 
   - name: install packages
     apt:
-      name: fonts-noto,fish,mosh
+      name: fonts-noto,fish,mosh,iperf3
 
   - apt_key:
       url: https://download.docker.com/linux/debian/gpg
@@ -31,4 +31,15 @@
   - name: install VSCode
     apt:
       name: code
+      update_cache: yes
+
+  - apt_key:
+      url: https://www.charlesproxy.com/packages/apt/PublicKey
+  - name: add Charles Proxy apt repository
+    apt_repository:
+      repo: deb https://www.charlesproxy.com/packages/apt/ charles-proxy main
+      filename: charles
+  - name: install charles-proxy
+    apt:
+      name: charles-proxy
       update_cache: yes
