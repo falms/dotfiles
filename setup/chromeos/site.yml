@@ -15,7 +15,7 @@
       id: 0EBFCD88
   - name: add Docker apt repository
     apt_repository:
-      repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+      repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
       filename: docker
   - name: install Docker
     apt:
