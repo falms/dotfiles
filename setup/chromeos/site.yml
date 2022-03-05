@@ -10,7 +10,13 @@
 
   - name: install packages
     apt:
-      name: fonts-noto,fish,mosh,iperf3
+      pkg:
+      - fonts-noto
+      - fonts-ipafont
+      - fonts-ipaexfont
+      - fish
+      - mosh
+      - iperf3
 
   - apt_key:
       url: https://download.docker.com/linux/debian/gpg
