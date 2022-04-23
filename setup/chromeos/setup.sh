@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ansible-playbook -i localhost, site.yml
+ansible-playbook -i localhost, site.yml "${@}"
