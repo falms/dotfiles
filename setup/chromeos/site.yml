@@ -53,3 +53,18 @@
     apt:
       name: charles-proxy
       update_cache: yes
+
+  - name: dpkg add architecture i386
+    shell: dpkg --add-architecture i386
+    changed_when: false
+  - apt_key:
+      url: https://dl.winehq.org/wine-builds/winehq.key
+  - name: add WineHQ apt repository
+    apt_repository:
+      repo: deb https://dl.winehq.org/wine-builds/debian {{ ansible_lsb.codename }} main
+      filename: winehq
+  - name: install Wine
+    apt:
+      name: winehq-devel
+      install_recommends: yes
+      update_cache: yes
