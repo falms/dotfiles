@@ -36,7 +36,7 @@
       url: https://packages.microsoft.com/keys/microsoft.asc
   - name: add VSCode apt repository
     apt_repository:
-      repo: deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
+      repo: deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/repos/code stable main
       filename: vscode
   - name: install VSCode
     apt:
