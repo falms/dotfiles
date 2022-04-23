@@ -18,12 +18,16 @@
       - mosh
       - iperf3
 
+  - name: set dpkg architecture
+    set_fact:
+      dpkg_arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
+
   - apt_key:
       url: https://download.docker.com/linux/debian/gpg
       id: 0EBFCD88
   - name: add Docker apt repository
     apt_repository:
-      repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+      repo: deb [arch={{ dpkg_arch }}] https://download.docker.com/linux/debian {{ ansible_lsb.codename }} stable
       filename: docker
   - name: install Docker
     apt:
