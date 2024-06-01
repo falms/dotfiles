@@ -31,6 +31,11 @@
     apt:
       name: docker-ce,docker-ce-cli,containerd.io
       update_cache: yes
+  - name: add user to docker group
+    ansible.builtin.user:
+      name: "{{ lookup('env', 'USER') }}"
+      groups: docker
+      append: yes
 
   - apt_key:
       url: https://packages.microsoft.com/keys/microsoft.asc
