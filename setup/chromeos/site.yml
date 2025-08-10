@@ -3,11 +3,11 @@
   become: yes
   tasks:
   - name: install essentials for APT
-    apt:
+    ansible.builtin.apt:
       name: apt-transport-https,ca-certificates,curl,gnupg2,software-properties-common
 
   - name: install packages
-    apt:
+    ansible.builtin.apt:
       pkg:
       - fonts-noto
       - fonts-ipafont
@@ -16,16 +16,16 @@
       - mosh
       - iperf3
 
-  - get_url:
+  - ansible.builtin.get_url:
       url: https://download.docker.com/linux/debian/gpg
       dest: /etc/apt/keyrings/docker.asc
       mode: '0644'
   - name: add Docker apt repository
-    apt_repository:
+    ansible.builtin.apt_repository:
       repo: deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_lsb.codename }} stable
       filename: docker
   - name: install Docker
-    apt:
+    ansible.builtin.apt:
       name: docker-ce,docker-ce-cli,containerd.io,docker-buildx-plugin,docker-compose-plugin
       update_cache: yes
   - name: add user to docker group
@@ -35,20 +35,20 @@
       append: yes
 
   - name: install VSCode
-    apt:
+    ansible.builtin.apt:
       deb: "https://code.visualstudio.com/sha/download?build=stable&os={{ 'linux-deb-x64' if ansible_architecture == 'x86_64' else 'linux-deb-arm64' }}"
 
   - name: dpkg add architecture i386
     shell: dpkg --add-architecture i386
     changed_when: false
-  - apt_key:
+  - ansible.builtin.apt_key:
       url: https://dl.winehq.org/wine-builds/winehq.key
   - name: add WineHQ apt repository
-    apt_repository:
+    ansible.builtin.apt_repository:
       repo: deb https://dl.winehq.org/wine-builds/debian {{ ansible_lsb.codename }} main
       filename: winehq
   - name: install Wine
-    apt:
+    ansible.builtin.apt:
       name: winehq-devel
       install_recommends: yes
       update_cache: yes
