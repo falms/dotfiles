@@ -29,7 +29,7 @@
       filename: docker
   - name: install Docker
     apt:
-      name: docker-ce,docker-ce-cli,containerd.io
+      name: docker-ce,docker-ce-cli,containerd.io,docker-buildx-plugin,docker-compose-plugin
       update_cache: yes
   - name: add user to docker group
     ansible.builtin.user:
