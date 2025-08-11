@@ -14,7 +14,15 @@
       - fonts-ipaexfont
       - fish
       - mosh
+      - dnsutils
       - iperf3
+      - wireshark
+
+  - name: add user to wireshark group
+    ansible.builtin.user:
+      name: "{{ lookup('env', 'USER') }}"
+      groups: wireshark
+      append: yes
 
   - ansible.builtin.get_url:
       url: https://download.docker.com/linux/debian/gpg
