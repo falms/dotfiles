@@ -18,6 +18,10 @@
       - iperf3
       - wireshark
 
+  - name: create wireshark group
+    ansible.builtin.group:
+      name: wireshark
+
   - name: add user to wireshark group
     ansible.builtin.user:
       name: "{{ lookup('env', 'USER') }}"
