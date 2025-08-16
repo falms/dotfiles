@@ -50,17 +50,19 @@
     ansible.builtin.apt:
       deb: "https://code.visualstudio.com/sha/download?build=stable&os={{ 'linux-deb-x64' if ansible_architecture == 'x86_64' else 'linux-deb-arm64' }}"
 
-  - name: dpkg add architecture i386
-    shell: dpkg --add-architecture i386
-    changed_when: false
-  - ansible.builtin.apt_key:
-      url: https://dl.winehq.org/wine-builds/winehq.key
-  - name: add WineHQ apt repository
-    ansible.builtin.apt_repository:
-      repo: deb https://dl.winehq.org/wine-builds/debian {{ ansible_lsb.codename }} main
-      filename: winehq
-  - name: install Wine
-    ansible.builtin.apt:
-      name: winehq-devel
-      install_recommends: yes
-      update_cache: yes
+  - when: ansible_architecture == 'x86_64'
+    block:
+    - name: dpkg add architecture i386
+      shell: dpkg --add-architecture i386
+      changed_when: false
+    - ansible.builtin.apt_key:
+        url: https://dl.winehq.org/wine-builds/winehq.key
+    - name: add WineHQ apt repository
+      ansible.builtin.apt_repository:
+        repo: deb https://dl.winehq.org/wine-builds/debian {{ ansible_lsb.codename }} main
+        filename: winehq
+    - name: install Wine
+      ansible.builtin.apt:
+        name: winehq-devel
+        install_recommends: yes
+        update_cache: yes
